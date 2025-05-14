@@ -350,13 +350,12 @@ const sampleProducts = [
 ];
 
 interface ProductPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
-const ProductPage = ({ params }: ProductPageProps) => {
-  const product = sampleProducts.find(p => p.id === parseInt(params.id));
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params;
+  const product = sampleProducts.find(p => p.id === parseInt(id));
 
   if (!product) {
     notFound();
@@ -481,6 +480,4 @@ const ProductPage = ({ params }: ProductPageProps) => {
       )}
     </div>
   );
-};
-
-export default ProductPage; 
+} 
